@@ -7,7 +7,6 @@ import 'package:flutter_bloc_concepts/presentation/screens/third_screen.dart';
 import '../../logic/cubit/counter_cubit.dart';
 
 class AppRouter {
-  final CounterCubit _counterCubit = CounterCubit();
 
   Route onGenerateRoute(RouteSettings settings) {
     final GlobalKey<ScaffoldState> key = settings.arguments;
@@ -15,41 +14,30 @@ class AppRouter {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                  value: _counterCubit,
-                  child: HomeScreen(
-                    title: 'Home Screen',
-                    color: Colors.blueAccent,
-                  ),
-                ));
+            builder: (_) => HomeScreen(
+              title: 'Home Screen',
+              color: Colors.blueAccent,
+            ));
         break;
       case '/second':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                  value: _counterCubit,
-                  child: SecondScreen(
-                    title: 'Home Screen',
-                    color: Colors.redAccent,
-                    homeScreenKey: key,
-                  ),
-                ));
+            builder: (_) => SecondScreen(
+              title: 'Home Screen',
+              color: Colors.redAccent,
+              homeScreenKey: key,
+            ));
         break;
       case '/third':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                  value: _counterCubit,
-                  child: ThirdScreen(
-                    title: 'Home Screen',
-                    color: Colors.greenAccent,
-                  ),
-                ));
+            builder: (_) => ThirdScreen(
+              title: 'Home Screen',
+              color: Colors.greenAccent,
+            ));
         break;
       default:
         return null;
     }
   }
 
-  void dispose() {
-    _counterCubit.close();
-  }
+
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_concepts/constants/enums.dart';
+import 'package:flutter_bloc_concepts/logic/cubit/internet_cubit.dart';
 
 import '../../logic/cubit/counter_cubit.dart';
 
@@ -27,6 +29,21 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+                  if (state is InternetConnect &&
+                      state.connectionType == ConnectionType.Wifi) {
+                    return Text('Wifi');
+                  }
+                  else if (state is InternetConnect &&
+                      state.connectionType == ConnectionType.Mobile) {
+                    return Text('Mobile');
+                  }
+                  else if (state is InternetDisconnect) {
+                    return Text('Disconnected');
+                  }
+                  return CircularProgressIndicator();
+                }),
             Text(
               'You have pushed the button this many times:',
             ),
@@ -49,26 +66,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state.counterValue < 0) {
                   return Text(
                     'BRR, NEGATIVE ' + state.counterValue.toString(),
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline4,
                   );
                 } else if (state.counterValue % 2 == 0) {
                   return Text(
                     'YAAAY ' + state.counterValue.toString(),
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline4,
                   );
                 } else if (state.counterValue == 5) {
                   return Text(
                     'HMM, NUMBER 5',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline4,
                   );
                 } else
                   return Text(
                     state.counterValue.toString(),
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline4,
                   );
               },
             ),
-            SizedBox(
+           /* SizedBox(
               height: 24,
             ),
             Row(
@@ -93,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Icon(Icons.add),
                 ),
               ],
-            ),
+            ),*/
             SizedBox(
               height: 24,
             ),
