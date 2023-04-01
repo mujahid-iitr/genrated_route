@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
               },
             ),
-           /* SizedBox(
+            SizedBox(
               height: 24,
             ),
             Row(
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Icon(Icons.add),
                 ),
               ],
-            ),*/
+            ),
             SizedBox(
               height: 24,
             ),
