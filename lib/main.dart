@@ -1,33 +1,19 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_bloc_concepts/logic/cubit/counter_cubit.dart';
 import 'package:flutter_bloc_concepts/logic/cubit/settings_cubit.dart';
 import 'package:flutter_bloc_concepts/presentation/router/app_router.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'logic/cubit/internet_cubit.dart';
 
-// class MyClass extends Equatable {
-//   final int value;
-
-//   MyClass({
-//     this.value,
-//   });
-
-//   @override
-//   List<Object> get props => [];
-// }
-
-void main() {
-  // final a = MyClass(value: 1);
-  // final b = MyClass(value: 2);
-
-  // print('a == b ' + (a == b).toString());
-
-  // print('a == a ' + (a == a).toString());
-  // print('b == b ' + (b == b).toString());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
 
   runApp(MyApp(
     appRouter: AppRouter(),
