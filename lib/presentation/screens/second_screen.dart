@@ -1,34 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../logic/cubit/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/logic/cubit/counter_cubit.dart';
 
 class SecondScreen extends StatefulWidget {
-  SecondScreen({
-    Key key,
-    this.title,
-    this.color,
-    this.homeScreenKey,
-  }) : super(key: key);
+  SecondScreen({Key key, this.title, this.color}) : super(key: key);
 
   final String title;
   final Color color;
-  final GlobalKey<ScaffoldState> homeScreenKey;
-
 
   @override
   _SecondScreenState createState() => _SecondScreenState();
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  GlobalKey<ScaffoldState> secondScreenKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: secondScreenKey,
-
       appBar: AppBar(
+        backgroundColor: widget.color,
         title: Text(widget.title),
       ),
       body: Center(
@@ -48,9 +37,12 @@ class _SecondScreenState extends State<SecondScreen> {
                     ),
                   );
                 } else if (state.wasIncremented == false) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Decremented'),
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Decremented!'),
+                      duration: Duration(milliseconds: 300),
+                    ),
+                  );
                 }
               },
               builder: (context, state) {
@@ -84,6 +76,7 @@ class _SecondScreenState extends State<SecondScreen> {
               children: [
                 FloatingActionButton(
                   heroTag: Text('${widget.title}'),
+                  backgroundColor: widget.color,
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                     // context.bloc<CounterCubit>().decrement();
@@ -92,10 +85,11 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Icon(Icons.remove),
                 ),
                 FloatingActionButton(
-                  heroTag: Text('${widget.title} #2'),
+                  backgroundColor: widget.color,
+                  heroTag: Text('${widget.title} 2nd'),
                   onPressed: () {
                     // BlocProvider.of<CounterCubit>(context).increment();
-                    context.bloc<CounterCubit>().increment();
+                    context.read<CounterCubit>().increment();
                   },
                   tooltip: 'Increment',
                   child: Icon(Icons.add),
@@ -106,10 +100,15 @@ class _SecondScreenState extends State<SecondScreen> {
               height: 24,
             ),
             MaterialButton(
-              color: widget.color,
-              onPressed: () {},
-              child: Text("Go to second screen"),
-            )
+              color: Colors.greenAccent,
+              child: Text(
+                'Go to Third Screen',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/third');
+              },
+            ),
           ],
         ),
       ),

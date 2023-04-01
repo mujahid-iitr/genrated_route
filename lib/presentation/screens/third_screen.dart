@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../logic/cubit/counter_cubit.dart';
+import 'package:flutter_bloc_concepts/logic/cubit/counter_cubit.dart';
 
 class ThirdScreen extends StatefulWidget {
   ThirdScreen({Key key, this.title, this.color}) : super(key: key);
@@ -18,6 +17,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: widget.color,
         title: Text(widget.title),
       ),
       body: Center(
@@ -37,9 +37,12 @@ class _ThirdScreenState extends State<ThirdScreen> {
                     ),
                   );
                 } else if (state.wasIncremented == false) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Decremented'),
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Decremented!'),
+                      duration: Duration(milliseconds: 300),
+                    ),
+                  );
                 }
               },
               builder: (context, state) {
@@ -73,6 +76,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
               children: [
                 FloatingActionButton(
                   heroTag: Text('${widget.title}'),
+                  backgroundColor: widget.color,
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                     // context.bloc<CounterCubit>().decrement();
@@ -81,10 +85,11 @@ class _ThirdScreenState extends State<ThirdScreen> {
                   child: Icon(Icons.remove),
                 ),
                 FloatingActionButton(
-                  heroTag: Text('${widget.title} #2'),
+                  backgroundColor: widget.color,
+                  heroTag: Text('${widget.title} 2nd'),
                   onPressed: () {
                     // BlocProvider.of<CounterCubit>(context).increment();
-                    context.bloc<CounterCubit>().increment();
+                    context.read<CounterCubit>().increment();
                   },
                   tooltip: 'Increment',
                   child: Icon(Icons.add),
@@ -94,11 +99,25 @@ class _ThirdScreenState extends State<ThirdScreen> {
             SizedBox(
               height: 24,
             ),
-            MaterialButton(
-              color: widget.color,
-              onPressed: () {},
-              child: Text("Go to second screen"),
-            )
+            // MaterialButton(
+            //   color: widget.color,
+            //   child: Text(
+            //     'Go to Second Screen',
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute<HomeScreen>(
+            //         builder: (context) {
+            //           return HomeScreen(
+            //             color: Colors.redAccent,
+            //             title: 'Second Screen',
+            //           );
+            //         },
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
