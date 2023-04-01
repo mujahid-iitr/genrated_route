@@ -11,15 +11,17 @@ class CounterState {
 
   Map<String, dynamic> toMap() {
     return {
-      'counterValue': this.counterValue,
-      'wasIncremented': this.wasIncremented,
+      'counterValue': counterValue,
+      'wasIncremented': wasIncremented,
     };
   }
 
   factory CounterState.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
     return CounterState(
-      counterValue: map['counterValue'] as int,
-      wasIncremented: map['wasIncremented'] as bool,
+      counterValue: map['counterValue'],
+      wasIncremented: map['wasIncremented'],
     );
   }
 
